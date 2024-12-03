@@ -9,12 +9,17 @@ import SwiftUI
 
 @main
 struct DemoAppApp: App {
-    let persistenceController = PersistenceController.shared
+    let persistenceController = CoreDataHelper.shared
+    
+    init() {
+        MockDataService.mockUserData()
+        persistenceController.addMockData()
+    }
 
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .environment(\.managedObjectContext, persistenceController.context)
         }
     }
 }
